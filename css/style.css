@@ -1,0 +1,21 @@
+* {
+  background-color: darkgrey;
+}
+
+header {
+  font-size: 2em;
+}
+
+.storeInfoBlock {
+  border: solid 3px darkgoldenrod;
+  padding: 0.5em;
+  display: table-cell;
+  margin: 0 auto;
+  overflow: wrap;
+  text-overflow: wrap;
+}
+
+.storeStatusList {
+  display: flex;
+  padding: 1em;
+}
