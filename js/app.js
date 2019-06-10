@@ -339,6 +339,18 @@ document.getElementById('store4').innerHTML += populateList(streetStore2.custPer
 document.getElementById('store5').innerHTML = streetStore3.name + ' \nCustomers per Hour';
 document.getElementById('store5').innerHTML += populateList(streetStore3.custPerHour);
 
+// Build hourly list on html
+document.getElementById('store1C').innerHTML = brickStore.name + ' \nCookies per Hour';
+document.getElementById('store1C').innerHTML += populateList(brickStore.cookiesPerHour);
+document.getElementById('store2C').innerHTML = truckStore.name + ' \nCookies per Hour';
+document.getElementById('store2C').innerHTML += populateList(truckStore.cookiesPerHour);
+document.getElementById('store3C').innerHTML = streetStore.name + ' \nCookies per Hour';
+document.getElementById('store3C').innerHTML += populateList(streetStore.cookiesPerHour);
+document.getElementById('store4C').innerHTML = streetStore2.name + ' \nCookies per Hour';
+document.getElementById('store4C').innerHTML += populateList(streetStore2.cookiesPerHour);
+document.getElementById('store5C').innerHTML = streetStore3.name + ' \nCookies per Hour';
+document.getElementById('store5C').innerHTML += populateList(streetStore3.cookiesPerHour);
+
 // Build min max table on html
 document.getElementById('store1MM').innerHTML = buildMinMax(brickStore);
 document.getElementById('store2MM').innerHTML = buildMinMax(truckStore);
