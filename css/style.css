@@ -19,3 +19,26 @@ header {
   display: flex;
   padding: 1em;
 }
+
+#cookiesPerHourTable {
+  border: 3px solid goldenrod;
+  margin: auto;
+  padding: .5em;
+  display: table-cell;
+}
+
+#customersPerHourTable {
+  border: 3px solid goldenrod;
+  margin: auto;
+  padding: .5em;
+  display: table-cell;
+}
+
+table, td, th {
+  border: 1px solid black;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}

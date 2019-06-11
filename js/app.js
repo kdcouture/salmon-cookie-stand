@@ -8,6 +8,7 @@ Salmon cookie lab, app.js
 'use strict';
 
 // Objects
+
 var brickStore = {
   // Attributes
   name: 'Salmon Cookie Storefront',
@@ -326,6 +327,73 @@ function buildMinMax(salObj) {
 
   return retStr;
 }
+
+/*
+@func createTable
+@param eleArr: an array containing store objects.
+       sel: selector 0 = customers per hour, 1 = cookies per hour
+@ret void
+@desc: This function takes in an array of store objects and creates
+  a table on the html page dispaying either customers per hour
+  or cookies per hour.
+*/
+function createTable(eleArr, sel) {
+  var timeKeeper = 6;
+  var strBuild = '';
+  // Build headder
+  if(sel === 0) {
+    strBuild += '<h4>Storefront Customers per Hour</h4>';
+  }
+  else if(sel === 1) {
+    strBuild += '<h4>Storefront Cookies per Hour</h4>';
+  }
+  strBuild += '<table><tr><th>Storefront</th>';
+  // Create time header
+  for(var i = 0; i < eleArr[0].custPerHour.length; i++) {
+    if(timeKeeper > 12) {
+      strBuild += '<th>' + (timeKeeper-12) + ' PM</th>';
+    }
+    else if(timeKeeper < 12){
+      strBuild += '<th>' + timeKeeper + ' AM</th>';
+    }
+    else {
+      strBuild += '<th>' + timeKeeper + ' PM</th>';
+    }
+    timeKeeper++;
+  }
+  strBuild += '<th>Location Total</th></tr>';
+
+  // Build table info
+  switch(sel) {
+  case 0: // customers per hour
+    for(i = 0; i < eleArr.length; i++) {
+      strBuild += '<tr><td>' + eleArr[i].name + '</td>';
+      for(var j = 0; j < eleArr[i].custPerHour.length; j++) {
+        strBuild += '<td>' + eleArr[i].custPerHour[j] + '</td>';
+      }
+      strBuild += '<td>' + eleArr[i].totalCust + '</td></tr>';
+    }
+    break;
+  case 1: // cookies per hour
+    for(i = 0; i < eleArr.length; i++) {
+      strBuild += '<tr><td>' + eleArr[i].name + '</td>';
+      for(var k = 0; k < eleArr[i].cookiesPerHour.length; k++) {
+        strBuild += '<td>' + eleArr[i].cookiesPerHour[k] + '</td>';
+      }
+      strBuild += '<td>' + eleArr[i].totalCookies + '</td></tr>';
+    }
+
+    break;
+  default: // Does nothing on invalid selects.
+    break;
+  }
+  strBuild += '</table>';
+  return strBuild;
+}
+
+var testArr = [brickStore, truckStore, streetStore, streetStore2, streetStore3];
+document.getElementById('cookiesPerHourTable').innerHTML = createTable(testArr, 1);
+document.getElementById('customersPerHourTable').innerHTML = createTable(testArr, 0);
 
 // Build hourly list on html
 document.getElementById('store1').innerHTML = brickStore.name + ' \nCustomers per Hour';
