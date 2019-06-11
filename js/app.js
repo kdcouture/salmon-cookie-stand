@@ -7,285 +7,33 @@ Salmon cookie lab, app.js
 
 'use strict';
 
-// Objects
+// Object constructor
 
-var brickStore = {
-  // Attributes
-  name: 'Salmon Cookie Storefront',
-  avgCookies: Math.floor((Math.random()+1)*20),
-  custPerHour: [],
-  cookiesPerHour: [],
-  minCustHr: 0,
-  maxCustHr: 0,
-  totalCust: 0,
-  totalCookies: 0,
-  // Methods
-  genCustPerHour: function() {
-    var retArry = [];
-    for(var i = 0; i < 15; i++) {
-      retArry.push(Math.floor(Math.random()*200));
-    }
-    // console.log(retArry);
-    this.custPerHour = retArry;
-  },
-  calcCookiesPerHour: function() {
-    this.cookiesPerHour = genCookiesPerHour(this.custPerHour, this.avgCookies);
-  },
-  findMin: function() {
-    var min = 999;
-    for(var i = 0; i < this.custPerHour.length; i++) {
-      if(this.custPerHour[i] < min)
-        min = this.custPerHour[i];
-    }
-    this.minCustHr = min;
-  },
-  findMax: function() {
-    var max = -999;
-    for(var i = 0; i < this.custPerHour.length; i++) {
-      if(this.custPerHour[i] > max)
-        max = this.custPerHour[i];
-    }
-    this.maxCustHr = max;
-  },
-  calcTotalCust: function() {
-    var totalCusts = 0;
-    for(var i = 0; i < this.custPerHour.length; i++)
-      totalCusts += this.custPerHour[i];
-    this.totalCust = totalCusts;
-  },
-  calcTotalCookies: function() {
-    this.totalCookies = this.totalCust*this.avgCookies;
-  },
-};
-// Call methods to fill in data.
-brickStore.genCustPerHour();
-brickStore.calcCookiesPerHour();
-brickStore.findMax();
-brickStore.findMin();
-brickStore.calcTotalCust();
-brickStore.calcTotalCookies();
+//   name:
+//   avgCookies:
+//   custPerHour: []
+//   cookiesPerHour: []
+//   minCustHr:
+//   maxCustHr:
+//   totalCust:
+//   totalCookies:
 
-var truckStore = {
-  name: 'Salmon Cookie Truck',
-  avgCookies: Math.floor((Math.random()+1)*20),
-  custPerHour: [],
-  cookiesPerHour: [],
-  minCustHr: 0,
-  maxCustHr: 0,
-  totalCust: 0,
-  totalCookies: 0,
-  // Methods
-  genCustPerHour: function() {
-    var retArry = [];
-    for(var i = 0; i < 15; i++) {
-      retArry.push(Math.floor(Math.random()*100));
-    }
-    // console.log(retArry);
-    this.custPerHour = retArry;
-  },
-  calcCookiesPerHour: function() {
-    this.cookiesPerHour = genCookiesPerHour(this.custPerHour, this.avgCookies);
-  },
-  findMin: function() {
-    var min = 999;
-    for(var i = 0; i < this.custPerHour.length; i++) {
-      if(this.custPerHour[i] < min)
-        min = this.custPerHour[i];
-    }
-    this.minCustHr = min;
-  },
-  findMax: function() {
-    var max = -999;
-    for(var i = 0; i < this.custPerHour.length; i++) {
-      if(this.custPerHour[i] > max)
-        max = this.custPerHour[i];
-    }
-    this.maxCustHr = max;
-  },
-  calcTotalCust: function() {
-    var totalCusts = 0;
-    for(var i = 0; i < this.custPerHour.length; i++)
-      totalCusts += this.custPerHour[i];
-    this.totalCust = totalCusts;
-  },
-  calcTotalCookies: function() {
-    this.totalCookies = this.totalCust*this.avgCookies;
-  },
-};
-// Call methods to fill object
-truckStore.genCustPerHour();
-truckStore.calcCookiesPerHour();
-truckStore.findMax();
-truckStore.findMin();
-truckStore.calcTotalCust();
-truckStore.calcTotalCookies();
+function Store(name, avgCookies, custPerHour) {
+  this.name = name;
+  this.avgCookies = avgCookies;
+  this.custPerHour = custPerHour;
+  this.cookiesPerHour = genCookiesPerHour(custPerHour, avgCookies);
+  this.minCustHr = findMin(custPerHour);
+  this.maxCustHr = findMax(custPerHour);
+  this.totalCust = sumArr(custPerHour);
+  this.totalCookies = sumArr(this.cookiesPerHour);
+}
 
-var streetStore = {
-  name: 'Salmon Cookie Street Stop',
-  avgCookies: Math.floor((Math.random()+1)*20),
-  custPerHour: [],
-  cookiesPerHour: [],
-  minCustHr: 0,
-  maxCustHr: 0,
-  totalCust: 0,
-  totalCookies: 0,
-  // Methods
-  genCustPerHour: function() {
-    var retArry = [];
-    for(var i = 0; i < 15; i++) {
-      retArry.push(Math.floor(Math.random()*70));
-    }
-    // console.log(retArry);
-    this.custPerHour = retArry;
-  },
-  calcCookiesPerHour: function() {
-    this.cookiesPerHour = genCookiesPerHour(this.custPerHour, this.avgCookies);
-  },
-  findMin: function() {
-    var min = 999;
-    for(var i = 0; i < this.custPerHour.length; i++) {
-      if(this.custPerHour[i] < min)
-        min = this.custPerHour[i];
-    }
-    this.minCustHr = min;
-  },
-  findMax: function() {
-    var max = -999;
-    for(var i = 0; i < this.custPerHour.length; i++) {
-      if(this.custPerHour[i] > max)
-        max = this.custPerHour[i];
-    }
-    this.maxCustHr = max;
-  },
-  calcTotalCust: function() {
-    var totalCusts = 0;
-    for(var i = 0; i < this.custPerHour.length; i++)
-      totalCusts += this.custPerHour[i];
-    this.totalCust = totalCusts;
-  },
-  calcTotalCookies: function() {
-    this.totalCookies = this.totalCust*this.avgCookies;
-  },
-};
-// Call methods to fill out data
-streetStore.genCustPerHour();
-streetStore.calcCookiesPerHour();
-streetStore.findMax();
-streetStore.findMin();
-streetStore.calcTotalCust();
-streetStore.calcTotalCookies();
-
-var streetStore2 = {
-  name: 'Salmon Cookie Street Stop #2',
-  avgCookies: Math.floor((Math.random()+1)*20),
-  custPerHour: [],
-  cookiesPerHour: [],
-  minCustHr: 0,
-  maxCustHr: 0,
-  totalCust: 0,
-  totalCookies: 0,
-  // Methods
-  genCustPerHour: function() {
-    var retArry = [];
-    for(var i = 0; i < 15; i++) {
-      retArry.push(Math.floor(Math.random()*70));
-    }
-    // console.log(retArry);
-    this.custPerHour = retArry;
-  },
-  calcCookiesPerHour: function() {
-    this.cookiesPerHour = genCookiesPerHour(this.custPerHour, this.avgCookies);
-  },
-  findMin: function() {
-    var min = 999;
-    for(var i = 0; i < this.custPerHour.length; i++) {
-      if(this.custPerHour[i] < min)
-        min = this.custPerHour[i];
-    }
-    this.minCustHr = min;
-  },
-  findMax: function() {
-    var max = -999;
-    for(var i = 0; i < this.custPerHour.length; i++) {
-      if(this.custPerHour[i] > max)
-        max = this.custPerHour[i];
-    }
-    this.maxCustHr = max;
-  },
-  calcTotalCust: function() {
-    var totalCusts = 0;
-    for(var i = 0; i < this.custPerHour.length; i++)
-      totalCusts += this.custPerHour[i];
-    this.totalCust = totalCusts;
-  },
-  calcTotalCookies: function() {
-    this.totalCookies = this.totalCust*this.avgCookies;
-  },
-};
-// Call methods to fill out data
-streetStore2.genCustPerHour();
-streetStore2.calcCookiesPerHour();
-streetStore2.findMax();
-streetStore2.findMin();
-streetStore2.calcTotalCust();
-streetStore2.calcTotalCookies();
-
-var streetStore3 = {
-  name: 'Salmon Cookie Street Stop #3',
-  avgCookies: Math.floor((Math.random()+1)*20),
-  custPerHour: [],
-  cookiesPerHour: [],
-  minCustHr: 0,
-  maxCustHr: 0,
-  totalCust: 0,
-  totalCookies: 0,
-  // Methods
-  genCustPerHour: function() {
-    var retArry = [];
-    for(var i = 0; i < 15; i++) {
-      retArry.push(Math.floor(Math.random()*70));
-    }
-    // console.log(retArry);
-    this.custPerHour = retArry;
-  },
-  calcCookiesPerHour: function() {
-    this.cookiesPerHour = genCookiesPerHour(this.custPerHour, this.avgCookies);
-  },
-  findMin: function() {
-    var min = 999;
-    for(var i = 0; i < this.custPerHour.length; i++) {
-      if(this.custPerHour[i] < min)
-        min = this.custPerHour[i];
-    }
-    this.minCustHr = min;
-  },
-  findMax: function() {
-    var max = -999;
-    for(var i = 0; i < this.custPerHour.length; i++) {
-      if(this.custPerHour[i] > max)
-        max = this.custPerHour[i];
-    }
-    this.maxCustHr = max;
-  },
-  calcTotalCust: function() {
-    var totalCusts = 0;
-    for(var i = 0; i < this.custPerHour.length; i++)
-      totalCusts += this.custPerHour[i];
-    this.totalCust = totalCusts;
-  },
-  calcTotalCookies: function() {
-    this.totalCookies = this.totalCust*this.avgCookies;
-  },
-};
-// Call methods to fill out data
-streetStore3.genCustPerHour();
-streetStore3.calcCookiesPerHour();
-streetStore3.findMax();
-streetStore3.findMin();
-streetStore3.calcTotalCust();
-streetStore3.calcTotalCookies();
-
+//
 // Functions
+//
+
+// Generate cookies per hour
 function genCookiesPerHour(inArry, avgCookies){
   var totalCookiesRet = [];
   for(var i = 0; i < inArry.length; i++) {
@@ -294,38 +42,42 @@ function genCookiesPerHour(inArry, avgCookies){
   return totalCookiesRet;
 }
 
-// This function will generate a hourly list from 6 AM to 8 PM
-// filling in the data with the given array. (Arrays excpeted 15 elements.)
-// Builds an html list.
-function populateList(infoArry) {
-  var strRet = '<ul>';
-  var timeKeeper = 6;
-  for(var i = 0; i < infoArry.length; i++) {
-    strRet += '<li>';
-    if(timeKeeper > 12) {
-      strRet += (timeKeeper-12) + ' PM : ' + infoArry[i];
-    }
-    else {
-      strRet += timeKeeper + ' AM : ' + infoArry[i];
-    }
-    strRet +='</li>';
-    timeKeeper++;
+// Generate customers per hour
+function genCustPerHour() {
+  var retArry = [];
+  for(var i = 0; i < 15; i++) {
+    retArry.push(Math.floor(Math.random()*100));
   }
-  strRet +='</ul>';
-  return strRet;
+  return retArry;
 }
 
-// Build min max
-function buildMinMax(salObj) {
-  var retStr = salObj.name + '\n<ul>';
-  retStr += '<li>Min Customers per Hour: ' + salObj.minCustHr + '</li>';
-  retStr += '<li>Max Customers per Hour: ' + salObj.maxCustHr + '</li>';
-  retStr += '<li>Total Customers : ' + salObj.totalCust + '</li>';
-  retStr += '<li>Avg Cookies Sold : ' + salObj.avgCookies + '</li>';
-  retStr += '<li>Total Cookies Sold : ' + salObj.totalCookies + '</li>';
+// Find Min
+function findMin(inArr) {
+  var min = 999;
+  for(var i = 0; i < inArr.length; i++) {
+    if(inArr[i] <= min)
+      min = inArr[i];
+  }
+  return min;
+}
 
+// Find Max
+function findMax(inArr) {
+  var max = -999;
+  for(var i = 0; i < inArr.length; i++) {
+    if(inArr[i] >= max)
+      max = inArr[i];
+  }
+  return max;
+}
 
-  return retStr;
+// Sum Array
+function sumArr(inArr) {
+  var total = 0;
+  for(var i = 0; i < inArr.length; i++) {
+    total += inArr[i];
+  }
+  return total;
 }
 
 /*
@@ -335,21 +87,63 @@ function buildMinMax(salObj) {
 @ret void
 @desc: This function takes in an array of store objects and creates
   a table on the html page dispaying either customers per hour
-  or cookies per hour.
+  or cookies per hour. Uses tableTimeHeaderHelper and tableTotalsFooterHelper
 */
 function createTable(eleArr, sel) {
-  var timeKeeper = 6;
   var strBuild = '';
-  // Build headder
+  var i, j ,k;
+  // Table headding
   if(sel === 0) {
     strBuild += '<h4>Storefront Customers per Hour</h4>';
   }
   else if(sel === 1) {
     strBuild += '<h4>Storefront Cookies per Hour</h4>';
   }
+  // Build time header
+  strBuild += tableTimeHeaderHelper();
+  // Build table info
+  switch(sel) {
+  case 0: // customers per hour
+    for(i = 0; i < eleArr.length; i++) {
+      strBuild += '<tr><td>' + eleArr[i].name + '</td>';
+      for(j = 0; j < eleArr[i].custPerHour.length; j++) {
+        strBuild += '<td>' + eleArr[i].custPerHour[j] + '</td>';
+      }
+      strBuild += '<td>' + eleArr[i].totalCust + '</td></tr>';
+    }
+    break;
+  case 1: // cookies per hour
+    for(i = 0; i < eleArr.length; i++) {
+      strBuild += '<tr><td>' + eleArr[i].name + '</td>';
+      for(k = 0; k < eleArr[i].cookiesPerHour.length; k++) {
+        strBuild += '<td>' + eleArr[i].cookiesPerHour[k] + '</td>';
+      }
+      strBuild += '<td>' + eleArr[i].totalCookies + '</td></tr>';
+    }
+
+    break;
+  default: // Does nothing on invalid selects.
+    break;
+  }
+  strBuild += tableTotalsFooterHelper(eleArr, sel);
+  strBuild += '</table>';
+  return strBuild;
+}
+
+/*
+@func tableTimeHeaderHelper
+@para Void
+@ret strBuild: string containing the html info to build
+@desc Creates a table headding from 6AM to 8PM including
+ a totals spot that the end.
+*/
+function tableTimeHeaderHelper() {
+  var strBuild = '';
+  var timeKeeper = 6;
+  // Build headder
   strBuild += '<table><tr><th>Storefront</th>';
   // Create time header
-  for(var i = 0; i < eleArr[0].custPerHour.length; i++) {
+  for(var i = 0; i < 15; i++) {
     if(timeKeeper > 12) {
       strBuild += '<th>' + (timeKeeper-12) + ' PM</th>';
     }
@@ -362,66 +156,90 @@ function createTable(eleArr, sel) {
     timeKeeper++;
   }
   strBuild += '<th>Location Total</th></tr>';
-
-  // Build table info
-  switch(sel) {
-  case 0: // customers per hour
-    for(i = 0; i < eleArr.length; i++) {
-      strBuild += '<tr><td>' + eleArr[i].name + '</td>';
-      for(var j = 0; j < eleArr[i].custPerHour.length; j++) {
-        strBuild += '<td>' + eleArr[i].custPerHour[j] + '</td>';
-      }
-      strBuild += '<td>' + eleArr[i].totalCust + '</td></tr>';
-    }
-    break;
-  case 1: // cookies per hour
-    for(i = 0; i < eleArr.length; i++) {
-      strBuild += '<tr><td>' + eleArr[i].name + '</td>';
-      for(var k = 0; k < eleArr[i].cookiesPerHour.length; k++) {
-        strBuild += '<td>' + eleArr[i].cookiesPerHour[k] + '</td>';
-      }
-      strBuild += '<td>' + eleArr[i].totalCookies + '</td></tr>';
-    }
-
-    break;
-  default: // Does nothing on invalid selects.
-    break;
-  }
-  strBuild += '</table>';
   return strBuild;
 }
 
-var testArr = [brickStore, truckStore, streetStore, streetStore2, streetStore3];
-document.getElementById('cookiesPerHourTable').innerHTML = createTable(testArr, 1);
-document.getElementById('customersPerHourTable').innerHTML = createTable(testArr, 0);
-
-// Build hourly list on html
-document.getElementById('store1').innerHTML = brickStore.name + ' \nCustomers per Hour';
-document.getElementById('store1').innerHTML += populateList(brickStore.custPerHour);
-document.getElementById('store2').innerHTML = truckStore.name + ' \nCustomers per Hour';
-document.getElementById('store2').innerHTML += populateList(truckStore.custPerHour);
-document.getElementById('store3').innerHTML = streetStore.name + ' \nCustomers per Hour';
-document.getElementById('store3').innerHTML += populateList(streetStore.custPerHour);
-document.getElementById('store4').innerHTML = streetStore2.name + ' \nCustomers per Hour';
-document.getElementById('store4').innerHTML += populateList(streetStore2.custPerHour);
-document.getElementById('store5').innerHTML = streetStore3.name + ' \nCustomers per Hour';
-document.getElementById('store5').innerHTML += populateList(streetStore3.custPerHour);
-
-// Build hourly list on html
-document.getElementById('store1C').innerHTML = brickStore.name + ' \nCookies per Hour';
-document.getElementById('store1C').innerHTML += populateList(brickStore.cookiesPerHour);
-document.getElementById('store2C').innerHTML = truckStore.name + ' \nCookies per Hour';
-document.getElementById('store2C').innerHTML += populateList(truckStore.cookiesPerHour);
-document.getElementById('store3C').innerHTML = streetStore.name + ' \nCookies per Hour';
-document.getElementById('store3C').innerHTML += populateList(streetStore.cookiesPerHour);
-document.getElementById('store4C').innerHTML = streetStore2.name + ' \nCookies per Hour';
-document.getElementById('store4C').innerHTML += populateList(streetStore2.cookiesPerHour);
-document.getElementById('store5C').innerHTML = streetStore3.name + ' \nCookies per Hour';
-document.getElementById('store5C').innerHTML += populateList(streetStore3.cookiesPerHour);
+/*
+@func tableTotalsFooterHelper
+@param eleArr: an array of objects, sel: the selector
+@ret strBuild: the string containing html to display
+@desc This helper function creates and computes the totals
+  for either total customers each hour or cookies each hour
+  depending on sel
+*/
+function tableTotalsFooterHelper(eleArr, sel) {
+  var strBuild = '<tr><td>Column Totals</td>';
+  var hrTotal, i, k, total;
+  console.log(eleArr[0]);
+  if(sel === 0) {
+    for(i = 0; i < 15; i++) {
+      hrTotal = 0;
+      for(k = 0; k < eleArr.length; k++) {
+        hrTotal += eleArr[k].custPerHour[i];
+      }
+      strBuild += '<td>' + hrTotal + '</td>';
+    }
+    // Total of totals
+    total = 0;
+    for(i = 0; i < eleArr.length; i++) {
+      total += eleArr[i].totalCust;
+    }
+    strBuild += '<td>' + total + '</td></tr>';
+  }
+  else if(sel === 1) {
+    for(i = 0; i < 15; i++) {
+      hrTotal = 0;
+      for(k = 0; k < eleArr.length; k++) {
+        hrTotal += eleArr[k].cookiesPerHour[i];
+      }
+      strBuild += '<td>' + hrTotal + '</td>';
+    }
+    // Total of totals
+    total = 0;
+    for(i = 0; i < eleArr.length; i++) {
+      total += eleArr[i].totalCookies;
+    }
+    strBuild += '<td>' + total + '</td></tr>';
+  }
+  return strBuild;
+}
 
 // Build min max table on html
-document.getElementById('store1MM').innerHTML = buildMinMax(brickStore);
-document.getElementById('store2MM').innerHTML = buildMinMax(truckStore);
-document.getElementById('store3MM').innerHTML = buildMinMax(streetStore);
-document.getElementById('store4MM').innerHTML = buildMinMax(streetStore2);
-document.getElementById('store5MM').innerHTML = buildMinMax(streetStore3);
+function buildMinMaxHTML(eleArr) {
+  var buildStr = document.getElementById('MinMaxBlock').innerHTML;
+  for(var i = 0; i < eleArr.length; i++) {
+    buildStr += buildMinMax(eleArr[i]);
+  }
+  return buildStr;
+}
+
+// Build min max
+/*
+This function takes a salmon store object and builds a total list block.
+*/
+function buildMinMax(salObj) {
+  var retStr = '<div class=\'storeInfoBlock\'>' + salObj.name + '\n<ul>';
+  retStr += '<li>Min Customers per Hour: ' + salObj.minCustHr + '</li>';
+  retStr += '<li>Max Customers per Hour: ' + salObj.maxCustHr + '</li>';
+  retStr += '<li>Total Customers : ' + salObj.totalCust + '</li>';
+  retStr += '<li>Avg Cookies Sold : ' + salObj.avgCookies + '</li>';
+  retStr += '<li>Total Cookies Sold : ' + salObj.totalCookies + '</li></div>';
+  return retStr;
+}
+
+// Test code to create dummy stores.
+var testArr = [];
+var storeTest;
+var tempNameStr = '';
+for(var i = 0; i < 5; i++) {
+  tempNameStr = 'Store # ' + i;
+  storeTest = new Store(tempNameStr,i+1,genCustPerHour());
+  testArr.push(storeTest);
+}
+
+//
+//  Write to the HTML page
+//
+document.getElementById('cookiesPerHourTable').innerHTML = createTable(testArr, 1);
+document.getElementById('customersPerHourTable').innerHTML = createTable(testArr, 0);
+document.getElementById('MinMaxBlock').innerHTML = buildMinMaxHTML(testArr);
