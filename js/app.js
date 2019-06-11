@@ -46,7 +46,7 @@ function genCookiesPerHour(inArry, avgCookies){
 function genCustPerHour() {
   var retArry = [];
   for(var i = 0; i < 15; i++) {
-    retArry.push(Math.floor(Math.random()*100));
+    retArry.push(Math.ceil(Math.random()*100));
   }
   return retArry;
 }
@@ -170,7 +170,6 @@ function tableTimeHeaderHelper() {
 function tableTotalsFooterHelper(eleArr, sel) {
   var strBuild = '<tr><td>Column Totals</td>';
   var hrTotal, i, k, total;
-  console.log(eleArr[0]);
   if(sel === 0) {
     for(i = 0; i < 15; i++) {
       hrTotal = 0;
@@ -233,7 +232,7 @@ var storeTest;
 var tempNameStr = '';
 for(var i = 0; i < 5; i++) {
   tempNameStr = 'Store # ' + i;
-  storeTest = new Store(tempNameStr,i+1,genCustPerHour());
+  storeTest = new Store(tempNameStr,Math.ceil(Math.random()*9),genCustPerHour());
   testArr.push(storeTest);
 }
 
