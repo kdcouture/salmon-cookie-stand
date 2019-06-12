@@ -5,10 +5,11 @@ Jun. 10th, 2019
 Salmon cookie lab, app.js
 */
 
-'use strict';
+'use strict'; // Because you told me to.
 
 // Object constructor
 
+// Object attributes
 //   name:
 //   avgCookies:
 //   custPerHour: []
@@ -185,6 +186,7 @@ function tableTotalsFooterHelper(eleArr, sel) {
     }
     strBuild += '<td>' + total + '</td></tr>';
   }
+
   else if(sel === 1) {
     for(i = 0; i < 15; i++) {
       hrTotal = 0;
@@ -200,12 +202,13 @@ function tableTotalsFooterHelper(eleArr, sel) {
     }
     strBuild += '<td>' + total + '</td></tr>';
   }
+
   return strBuild;
 }
 
 // Build min max table on html
 function buildMinMaxHTML(eleArr) {
-  var buildStr = document.getElementById('MinMaxBlock').innerHTML;
+  var buildStr = '<h2>Storefront Min/Maxes</h2>';
   for(var i = 0; i < eleArr.length; i++) {
     buildStr += buildMinMax(eleArr[i]);
   }
@@ -217,13 +220,54 @@ function buildMinMaxHTML(eleArr) {
 This function takes a salmon store object and builds a total list block.
 */
 function buildMinMax(salObj) {
-  var retStr = '<div class=\'storeInfoBlock\'>' + salObj.name + '\n<ul>';
+  var retStr = '<div id=\'MinMaxBlock\' class=\'storeInfoBlock\'>' + salObj.name + '\n<ul>';
   retStr += '<li>Min Customers per Hour: ' + salObj.minCustHr + '</li>';
   retStr += '<li>Max Customers per Hour: ' + salObj.maxCustHr + '</li>';
   retStr += '<li>Total Customers : ' + salObj.totalCust + '</li>';
   retStr += '<li>Avg Cookies Sold : ' + salObj.avgCookies + '</li>';
   retStr += '<li>Total Cookies Sold : ' + salObj.totalCookies + '</li></div>';
   return retStr;
+}
+
+// Form Functions
+
+// Called on click submit button. Used by form in sales.html
+// eslint-disable-next-line no-unused-vars
+function formSubmit() {
+  console.log('Form Submitted!');
+  // Plays a small animation to show table has read the values.
+  var fieldVals = document.getElementById('newStoreField');
+  fieldVals.classList.add('shakeEffect');
+  var fName = fieldVals[1].value;
+  while(fName === '') {
+    fName = prompt('There must be a store name.');
+  }
+  var fAvgCookie = parseInt(fieldVals[2].value);
+  while(isNaN(fAvgCookie) || fAvgCookie <= 0){
+    fAvgCookie = prompt('Please enter a valid number for the average cookies sold. (0 is invalid)');
+  }
+  var tempStore = new Store(fName, fAvgCookie, genCustPerHour());
+  testArr.push(tempStore);
+  // Clear form
+  fieldVals[1].value = '';
+  fieldVals[2].value = '';
+  // Re-build tables
+  drawHTML_SalesTables();
+}
+
+// Removes the animation to table.
+var fieldVals = document.getElementById('newStoreField');
+fieldVals.addEventListener('animationend', event, function(){
+  fieldVals.classList.remove('shakeEffect');
+});
+
+//
+//  Write to the HTML page
+//
+function drawHTML_SalesTables() {
+  document.getElementById('cookiesPerHourTable').innerHTML = createTable(testArr, 1);
+  document.getElementById('customersPerHourTable').innerHTML = createTable(testArr, 0);
+  document.getElementById('MinMaxBlock').innerHTML = buildMinMaxHTML(testArr);
 }
 
 // Test code to create dummy stores.
@@ -235,10 +279,4 @@ for(var i = 0; i < 5; i++) {
   storeTest = new Store(tempNameStr,Math.ceil(Math.random()*9),genCustPerHour());
   testArr.push(storeTest);
 }
-
-//
-//  Write to the HTML page
-//
-document.getElementById('cookiesPerHourTable').innerHTML = createTable(testArr, 1);
-document.getElementById('customersPerHourTable').innerHTML = createTable(testArr, 0);
-document.getElementById('MinMaxBlock').innerHTML = buildMinMaxHTML(testArr);
+drawHTML_SalesTables();
