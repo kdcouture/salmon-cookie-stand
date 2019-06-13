@@ -44,10 +44,18 @@ function genCookiesPerHour(inArry, avgCookies){
 }
 
 // Generate customers per hour
-function genCustPerHour() {
+function genCustPerHour(min, max) {
   var retArry = [];
-  for(var i = 0; i < 15; i++) {
-    retArry.push(Math.ceil(Math.random()*100));
+  var valueArray = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6];
+  // Generate customers per hour, max is ensured to be included.
+  for(var i = 0; i < 7; i++) {
+    retArry.push(Math.ceil(max*valueArray[i]));
+  }
+  // Ensures that the min customers per hour is hit.
+  retArry.push(min);
+  // Finish genereatin customers.
+  for(var j = 8; j < 15; j++) {
+    retArry.push(Math.ceil(max*valueArray[i]));
   }
   return retArry;
 }
@@ -229,7 +237,7 @@ function formSubmit() {
       numArray[h] = prompt('Please enter a valid number! (0 is invalid)');
     }
   }
-  var tempStore = new Store(fName, numArray[0], genCustPerHour(),numArray[1],numArray[2]);
+  var tempStore = new Store(fName, numArray[0], genCustPerHour(numArray[1],numArray[2]), numArray[1], numArray[2]);
   testArr.push(tempStore);
   // Clear form
   fieldVals[1].value = '';
@@ -264,7 +272,7 @@ var storeTest;
 var tempNameStr = '';
 for(var i = 0; i < 5; i++) {
   tempNameStr = 'Store # ' + i;
-  storeTest = new Store(tempNameStr,Math.ceil(Math.random()*9),genCustPerHour(), 10, 50);
+  storeTest = new Store(tempNameStr,Math.ceil(Math.random()*9),genCustPerHour(10, 50), 10, 50);
   testArr.push(storeTest);
 }
 drawHTML_SalesTables();
