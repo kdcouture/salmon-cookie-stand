@@ -258,7 +258,10 @@ function formSubmit() {
 // Removes the animation to table.
 var fieldVals = document.getElementById('newStoreField');
 fieldVals.addEventListener('animationend', event, function(){
-  fieldVals.classList.remove('shakeEffect');
+  if(fieldVals.className === 'shakeEffect')
+    fieldVals.classList.remove('shakeEffect');
+  else
+    fieldVals.classList.add('shakeEffect');
 });
 
 //
