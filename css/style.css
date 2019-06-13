@@ -1,9 +1,11 @@
 * {
   background-color: darkgrey;
+  font-family: 'Sa';
 }
 
 header {
   font-size: 2em;
+  font-family: 'Shadows Into Light', cursive;
 }
 
 table, td, th {

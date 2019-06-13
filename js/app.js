@@ -19,13 +19,13 @@ Salmon cookie lab, app.js
 //   totalCust:
 //   totalCookies:
 
-function Store(name, avgCookies, custPerHour) {
+function Store(name, avgCookies, custPerHour, minCust, maxCust) {
   this.name = name;
   this.avgCookies = avgCookies;
   this.custPerHour = custPerHour;
   this.cookiesPerHour = genCookiesPerHour(custPerHour, avgCookies);
-  this.minCustHr = findMin(custPerHour);
-  this.maxCustHr = findMax(custPerHour);
+  this.minCustHr = minCust;
+  this.maxCustHr = maxCust;
   this.totalCust = sumArr(custPerHour);
   this.totalCookies = sumArr(this.cookiesPerHour);
 }
@@ -50,26 +50,6 @@ function genCustPerHour() {
     retArry.push(Math.ceil(Math.random()*100));
   }
   return retArry;
-}
-
-// Find Min
-function findMin(inArr) {
-  var min = 999;
-  for(var i = 0; i < inArr.length; i++) {
-    if(inArr[i] <= min)
-      min = inArr[i];
-  }
-  return min;
-}
-
-// Find Max
-function findMax(inArr) {
-  var max = -999;
-  for(var i = 0; i < inArr.length; i++) {
-    if(inArr[i] >= max)
-      max = inArr[i];
-  }
-  return max;
 }
 
 // Sum Array
@@ -121,8 +101,8 @@ function createTable(eleArr, sel) {
       }
       strBuild += '<td>' + eleArr[i].totalCookies + '</td></tr>';
     }
-
     break;
+
   default: // Does nothing on invalid selects.
     break;
   }
@@ -235,6 +215,7 @@ function buildMinMax(salObj) {
 // eslint-disable-next-line no-unused-vars
 function formSubmit() {
   console.log('Form Submitted!');
+  var numArray = [0,0,0];
   // Plays a small animation to show table has read the values.
   var fieldVals = document.getElementById('newStoreField');
   fieldVals.classList.add('shakeEffect');
@@ -242,15 +223,19 @@ function formSubmit() {
   while(fName === '') {
     fName = prompt('There must be a store name.');
   }
-  var fAvgCookie = parseInt(fieldVals[2].value);
-  while(isNaN(fAvgCookie) || fAvgCookie <= 0){
-    fAvgCookie = prompt('Please enter a valid number for the average cookies sold. (0 is invalid)');
+  for(var h = 0; h < 3; h++) {
+    numArray[h] = parseInt(fieldVals[2+h].value);
+    while(isNaN(numArray[h]) || numArray[h] <= 0){
+      numArray[h] = prompt('Please enter a valid number! (0 is invalid)');
+    }
   }
-  var tempStore = new Store(fName, fAvgCookie, genCustPerHour());
+  var tempStore = new Store(fName, numArray[0], genCustPerHour(),numArray[1],numArray[2]);
   testArr.push(tempStore);
   // Clear form
   fieldVals[1].value = '';
   fieldVals[2].value = '';
+  fieldVals[3].value = '';
+  fieldVals[4].value = '';
   // Re-build tables
   drawHTML_SalesTables();
 }
@@ -279,7 +264,7 @@ var storeTest;
 var tempNameStr = '';
 for(var i = 0; i < 5; i++) {
   tempNameStr = 'Store # ' + i;
-  storeTest = new Store(tempNameStr,Math.ceil(Math.random()*9),genCustPerHour());
+  storeTest = new Store(tempNameStr,Math.ceil(Math.random()*9),genCustPerHour(), 10, 50);
   testArr.push(storeTest);
 }
 drawHTML_SalesTables();

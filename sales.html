@@ -10,6 +10,7 @@
      <title>Salmon Cookie Stand</title>
      <!-- CSS Link -->
      <link href="./css/style.css" type="text/css" rel="stylesheet" />
+     <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light&display=swap" rel="stylesheet">
      
    </head>
  
@@ -19,7 +20,7 @@
      <img src="./img/salmon.png" alt="A salmon."/>
        <ul id="storeStatusList" style="list-style: none; padding-left: 0em;">
         <li>
-          <h2>Form Test</h2>
+          <h2 style="font-family: 'Shadows Into Light', cursive;">Form Test</h2>
           <form id="newStoreField" action="./sales.html">
             <fieldset>
               <legend style="background-color: gainsboro; border: black solid 2px">Add a new Salmon Cookie Store</legend>
@@ -29,6 +30,12 @@
                 </li>
                 <li>
                   Average cookies sold at the store: <input type="text" name="fAvgCookie">
+                </li>
+                <li>
+                  Minimum customers per hour: <input type="text" name="fMin">
+                </li>
+                <li>
+                  Maximum customers per hour: <input type="text" name="fMax">
                 </li>
               </ul>
               <input type="button" value="Submit" onclick="formSubmit()" style="border: black 2px solid">
