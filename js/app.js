@@ -253,34 +253,6 @@ var handleFormSubmit = function(formSubmitEvent) {
 
 form.addEventListener('submit', handleFormSubmit);
 
-// Called on click submit button. Used by form in sales.html
-// eslint-disable-next-line no-unused-vars
-function formSubmit() {
-  console.log('Form Submitted!');
-  var numArray = [0,0,0];
-  // Plays a small animation to show table has read the values.
-  var fieldVals = document.getElementById('newStoreField');
-  fieldVals.classList.add('shakeEffect');
-  var fName = fieldVals[1].value;
-  while(fName === '') {
-    fName = prompt('There must be a store name.');
-  }
-  for(var h = 0; h < 3; h++) {
-    numArray[h] = parseInt(fieldVals[2+h].value);
-    while(isNaN(numArray[h]) || numArray[h] <= 0){
-      numArray[h] = prompt('Please enter a valid number! (0 is invalid)');
-    }
-  }
-  var tempStore = new Store(fName, numArray[0], genCustPerHour(numArray[1],numArray[2]), numArray[1], numArray[2]);
-  testArr.push(tempStore);
-  // Clear form
-  fieldVals[1].value = '';
-  fieldVals[2].value = '';
-  fieldVals[3].value = '';
-  fieldVals[4].value = '';
-  // Re-build tables
-  drawHTML_SalesTables();
-}
 
 // Removes the animation to table.
 var fieldVals = document.getElementById('newStoreField');
