@@ -226,6 +226,7 @@ var handleFormSubmit = function(formSubmitEvent) {
   formSubmitEvent.preventDefault();
   console.log('Form Submitted!');
   var numArray = [0,0,0];
+  var isExist = -1; // Stores the index of known store.
   // Plays a small animation to show table has read the values.
   var fieldVals = document.getElementById('newStoreField');
   // fieldVals.classList.add('shakeEffect');
@@ -233,15 +234,32 @@ var handleFormSubmit = function(formSubmitEvent) {
   while(fName === '') {
     fName = prompt('There must be a store name.');
   }
+  // Check for existing store.
+  for(var m = 0; m < testArr.length; m++) {
+    if(fName === testArr[m].name) {
+      isExist = m;
+      break;
+    }
+  }
+
   for(var h = 0; h < 3; h++) {
     numArray[h] = parseInt(fieldVals[2+h].value);
     while(isNaN(numArray[h]) || numArray[h] <= 0){
       numArray[h] = prompt('Please enter a valid number! (0 is invalid)');
     }
   }
-  var tempStore = new Store(fName, numArray[0], genCustPerHour(numArray[1],numArray[2]), numArray[1], numArray[2]);
-  console.log(tempStore);
-  testArr.push(tempStore);
+  if (isExist === -1) {
+    var tempStore = new Store(fName, numArray[0], genCustPerHour(numArray[1],numArray[2]), numArray[1], numArray[2]);
+    testArr.push(tempStore);
+  }
+  // Update the found store's info.
+  else {
+    testArr[m].avgCookies = numArray[0];
+    testArr[m].minCustHr = numArray[1];
+    testArr[m].maxCustHr = numArray[2];
+    testArr[m].custPerHour = genCustPerHour(numArray[1],numArray[2]);
+    testArr[m].cookiesPerHour = genCookiesPerHour( testArr[m].custPerHour,numArray[0]);
+  }
   // Clear form
   fieldVals[1].value = '';
   fieldVals[2].value = '';
