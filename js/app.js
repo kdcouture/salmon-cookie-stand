@@ -52,10 +52,10 @@ function genCustPerHour(min, max) {
     retArry.push(Math.ceil(max*valueArray[i]));
   }
   // Ensures that the min customers per hour is hit.
-  retArry.push(min);
+  retArry.push(parseInt(min));
   // Finish genereatin customers.
   for(var j = 8; j < 15; j++) {
-    retArry.push(Math.ceil(max*valueArray[i]));
+    retArry.push(Math.ceil(max*valueArray[j]));
   }
   return retArry;
 }
