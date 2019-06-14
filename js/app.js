@@ -38,7 +38,7 @@ function Store(name, avgCookies, custPerHour, minCust, maxCust) {
 function genCookiesPerHour(inArry, avgCookies){
   var totalCookiesRet = [];
   for(var i = 0; i < inArry.length; i++) {
-    totalCookiesRet[i] = inArry[i]*avgCookies;
+    totalCookiesRet[i] = Math.ceil(inArry[i]*avgCookies);
   }
   return totalCookiesRet;
 }
@@ -219,6 +219,40 @@ function buildMinMax(salObj) {
 
 // Form Functions
 
+// Event Listener
+var form = document.getElementById('newStoreField');
+
+var handleFormSubmit = function(formSubmitEvent) {
+  formSubmitEvent.preventDefault();
+  console.log('Form Submitted!');
+  var numArray = [0,0,0];
+  // Plays a small animation to show table has read the values.
+  var fieldVals = document.getElementById('newStoreField');
+  // fieldVals.classList.add('shakeEffect');
+  var fName = fieldVals[1].value;
+  while(fName === '') {
+    fName = prompt('There must be a store name.');
+  }
+  for(var h = 0; h < 3; h++) {
+    numArray[h] = parseInt(fieldVals[2+h].value);
+    while(isNaN(numArray[h]) || numArray[h] <= 0){
+      numArray[h] = prompt('Please enter a valid number! (0 is invalid)');
+    }
+  }
+  var tempStore = new Store(fName, numArray[0], genCustPerHour(numArray[1],numArray[2]), numArray[1], numArray[2]);
+  console.log(tempStore);
+  testArr.push(tempStore);
+  // Clear form
+  fieldVals[1].value = '';
+  fieldVals[2].value = '';
+  fieldVals[3].value = '';
+  fieldVals[4].value = '';
+  // Re-build tables
+  drawHTML_SalesTables();
+};
+
+form.addEventListener('submit', handleFormSubmit);
+
 // Called on click submit button. Used by form in sales.html
 // eslint-disable-next-line no-unused-vars
 function formSubmit() {
@@ -267,12 +301,17 @@ function drawHTML_SalesTables() {
 }
 
 // Test code to create dummy stores.
-var testArr = [];
-var storeTest;
-var tempNameStr = '';
-for(var i = 0; i < 5; i++) {
-  tempNameStr = 'Store # ' + i;
-  storeTest = new Store(tempNameStr,Math.ceil(Math.random()*9),genCustPerHour(10, 50), 10, 50);
-  testArr.push(storeTest);
-}
+var store1 = new Store('1st and Pike', 6.3, genCustPerHour(23,65),23,65);
+var store2 = new Store('SeaTac Airport',1.2, genCustPerHour(3,24),3,24);
+var store3 = new Store('Seattle Center', 3.7, genCustPerHour(11,38),11,38);
+var store4 = new Store('Capitol Hill', 2.3, genCustPerHour(20,38),20,38);
+var store5 = new Store('Alki', 4.6, genCustPerHour(2,16),2,16);
+var testArr = [store1,store2,store3,store4,store5];
+// var storeTest;
+// var tempNameStr = '';
+// for(var i = 0; i < 5; i++) {
+//   tempNameStr = 'Store # ' + i;
+//   storeTest = new Store(tempNameStr,Math.ceil(Math.random()*9),genCustPerHour(10, 50), 10, 50);
+//   testArr.push(storeTest);
+// }
 drawHTML_SalesTables();
