@@ -61,10 +61,18 @@ input {
 .storeInfoBlock {
   border: solid 3px darkgoldenrod;
   padding: 0.5em;
+  margin: 10px;
   display: table-cell;
-  margin: 0 auto;
-  overflow: wrap;
-  text-overflow: wrap;
+  background-color: aliceblue;
+}
+
+.storeInfoBlock > ul {
+  background-color: aliceblue;
+}
+
+.storeInfoBlock > ul > li {
+  width: 220px;
+  background-color: aliceblue;
 }
 
 .storeStatusList {

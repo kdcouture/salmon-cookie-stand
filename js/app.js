@@ -198,12 +198,12 @@ function buildMinMaxHTML(eleArr) {
 This function takes a salmon store object and builds a total list block.
 */
 function buildMinMax(salObj) {
-  var retStr = '<div id=\'MinMaxBlock\' class=\'storeInfoBlock\'>' + salObj.name + '\n<ul>';
-  retStr += '<li>Min Customers per Hour: ' + salObj.minCustHr + '</li>';
-  retStr += '<li>Max Customers per Hour: ' + salObj.maxCustHr + '</li>';
+  var retStr = '<div class=\'storeInfoBlock\'>' + salObj.name + '\n<ul>';
+  retStr += '<li>Min Customers per Hour : ' + salObj.minCustHr + '</li>';
+  retStr += '<li>Max Customers per Hour : ' + salObj.maxCustHr + '</li>';
   retStr += '<li>Total Customers : ' + salObj.totalCust + '</li>';
   retStr += '<li>Avg Cookies Sold : ' + salObj.avgCookies + '</li>';
-  retStr += '<li>Total Cookies Sold : ' + salObj.totalCookies + '</li></div>';
+  retStr += '<li>Total Cookies Sold : ' + salObj.totalCookies + '</li></ul></div>';
   return retStr;
 }
 
