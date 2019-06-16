@@ -9,16 +9,6 @@ Salmon cookie lab, app.js
 
 // Object constructor
 
-// Object attributes
-//   name:
-//   avgCookies:
-//   custPerHour: []
-//   cookiesPerHour: []
-//   minCustHr:
-//   maxCustHr:
-//   totalCust:
-//   totalCookies:
-
 function Store(name, avgCookies, custPerHour, minCust, maxCust) {
   this.name = name;
   this.avgCookies = avgCookies;
@@ -230,6 +220,7 @@ var handleFormSubmit = function(formSubmitEvent) {
   // Plays a small animation to show table has read the values.
   var fieldVals = document.getElementById('newStoreField');
   // fieldVals.classList.add('shakeEffect');
+  fieldVals.className = 'shakeEffect';
   var fName = fieldVals[1].value;
   while(fName === '') {
     fName = prompt('There must be a store name.');
@@ -269,17 +260,15 @@ var handleFormSubmit = function(formSubmitEvent) {
   drawHTML_SalesTables();
 };
 
+// Attach form submit listener.
 form.addEventListener('submit', handleFormSubmit);
 
-
-// Removes the animation to table.
-var fieldVals = document.getElementById('newStoreField');
-fieldVals.addEventListener('animationend', event, function(){
-  if(fieldVals.className === 'shakeEffect')
-    fieldVals.classList.remove('shakeEffect');
-  else
-    fieldVals.classList.add('shakeEffect');
+// Listener that removes the animation to table.
+form.addEventListener('webkitAnimationEnd', function(){
+  if(form.className === 'shakeEffect')
+    form.className = '';
 });
+
 
 //
 //  Write to the HTML page
@@ -297,11 +286,5 @@ var store3 = new Store('Seattle Center', 3.7, genCustPerHour(11,38),11,38);
 var store4 = new Store('Capitol Hill', 2.3, genCustPerHour(20,38),20,38);
 var store5 = new Store('Alki', 4.6, genCustPerHour(2,16),2,16);
 var testArr = [store1,store2,store3,store4,store5];
-// var storeTest;
-// var tempNameStr = '';
-// for(var i = 0; i < 5; i++) {
-//   tempNameStr = 'Store # ' + i;
-//   storeTest = new Store(tempNameStr,Math.ceil(Math.random()*9),genCustPerHour(10, 50), 10, 50);
-//   testArr.push(storeTest);
-// }
+
 drawHTML_SalesTables();

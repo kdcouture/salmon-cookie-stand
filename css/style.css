@@ -1,6 +1,25 @@
 * {
   background-color: darkgrey;
-  font-family: 'Sa';
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1.05em;
+}
+
+.highLight1 {
+  color: white;
+  background-color: black;
+  font-family: fantasy, serif;
+}
+
+.highLight2 {
+  color: orangered;
+  background-color: grey;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.highLight3 {
+  color: goldenrod;
+  background-color: black;
+  font-family: 'Shadows Into Light', cursive;
 }
 
 header {
